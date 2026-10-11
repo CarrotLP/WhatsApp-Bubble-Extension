@@ -9,7 +9,8 @@
         "https://web.whatsapp.com/*"
       ],
       "css": ["styles.css"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "run_at": "document_start"
     }
   ],
   "web_accessible_resources": [

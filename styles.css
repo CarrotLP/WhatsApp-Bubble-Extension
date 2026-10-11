@@ -1,3 +1,9 @@
+/* Fallback CSS variables using Chrome extension standard keyword */
+:root {
+    --whatsapp-scroll-outgoing: url("chrome-extension://__MSG_@@extension_id__/scroll-ends.png");
+    --whatsapp-scroll-incoming: url("chrome-extension://__MSG_@@extension_id__/incoming-scroll.png");
+}
+
 /* Full imperial decree image */
 
 /* Imperial decree on outgoing messages only */
@@ -9,7 +15,6 @@
     position: relative !important;
     overflow: visible !important;
 }
-
 
 /* Do not add separate rod overlays */
 .x9f619.x1hx0egp.x1yrsyyn.xodvfiu.xct3hqd.xwib8y2::before,
@@ -28,25 +33,21 @@
     background-color: transparent !important;
 }
 
-
-
 /* Test: make the suspected parent container transparent */
 .x78zum5.xdt5ytf.x1hx0egp.x1h3r9g6.x1ld4j5a.x1q6425o.x1h2wzp9.x13bx8za.xgmf7it.xcjqink.xg7f59e.xxfb629.x141l45o.x1n33gsf.xa25jmb.xg5uraw.xt5wqpu.x1utqab1.x1ijczrz.xqxqsie.x10amw33.xuk3077.focusable-list-item.x1klvx2g.xahtqtb {
     background-color: transparent !important;
     box-shadow: none !important;
 }
 
-
 /* Hide the original outgoing bubble tail */
 [data-icon="tail-out"] {
     display: none !important;
 }
 
-
-/* Imperial decree text colour */
+/* Imperial decree text colour with cross-OS serif/Chinese fallbacks */
 .copyable-text {
     color: #5C2E0B !important;
-    font-family: "Noto Serif TC", "SimSun", serif !important;
+    font-family: "Noto Serif TC", "Songti SC", "Songti TC", "SimSun", "STSong", "KaiTi", serif !important;
     font-weight: 600 !important;
 }
 
@@ -55,21 +56,27 @@
 }
 
 /* Targets all outgoing messages (first and continuation) */
-[data-testid="msg-container"] div.x1n2onr6.x1g5lz36 {
+[data-testid="msg-container"] div.x1n2onr6.x1g5lz36,
+[data-testid="msg-container"] .message-out div.x1n2onr6 {
     background-color: transparent !important;
-    background-image: url("chrome-extension://kkkmcdkofkkilbfhcldlmnjoeekgddek/scroll-ends.png") !important;
+    background-image: var(--whatsapp-scroll-outgoing, url("chrome-extension://__MSG_@@extension_id__/scroll-ends.png")) !important;
     background-repeat: no-repeat !important;
     background-size: 100% 100% !important;
     position: relative !important;
+    min-height: 42px !important;
+    min-width: 80px !important;
 }
 
 /* Targets ALL incoming message bubbles (Sent and Received) */
-[data-testid="msg-container"] div.x1n2onr6.x1ew7x2d {
+[data-testid="msg-container"] div.x1n2onr6.x1ew7x2d,
+[data-testid="msg-container"] .message-in div.x1n2onr6 {
     background-color: transparent !important;
-    background-image: url("chrome-extension://kkkmcdkofkkilbfhcldlmnjoeekgddek/incoming-scroll.png") !important;
+    background-image: var(--whatsapp-scroll-incoming, url("chrome-extension://__MSG_@@extension_id__/incoming-scroll.png")) !important;
     background-repeat: no-repeat !important;
     background-size: 100% 100% !important;
     position: relative !important;
+    min-height: 42px !important;
+    min-width: 80px !important;
 }
 
 /* Keep text away from the parchment edges proportionally */
@@ -88,12 +95,27 @@
     box-sizing: border-box !important;
 }
 
-[aria-label=" Delivered "] {
+/* Delivered / Sent checkmarks across languages and icon formats */
+[data-icon="msg-check"],
+[data-icon="status-check"],
+[aria-label*="Delivered" i],
+[aria-label*="Sent" i],
+[aria-label*="已送達"],
+[aria-label*="已送达"],
+[aria-label*="已傳送"],
+[aria-label*="已发送"] {
     color: #C4A484 !important;
     fill: #C4A484 !important;
 }
 
-[aria-label=" Read "] {
+/* Read checkmarks across languages and icon formats */
+[data-icon="msg-dblcheck"][class*="read"],
+[data-icon="status-dblcheck"][class*="read"],
+[aria-label*="Read" i],
+[aria-label*="已讀"],
+[aria-label*="已读"],
+[aria-label*="Leído" i],
+[aria-label*="Lu" i] {
     color: #FF0000 !important;
     fill: #FF0000 !important;
 }
@@ -103,12 +125,12 @@
     fill: #C4A484 !important;
 }
 
-.x9f619.x1hx0egp.x1yrsyyn{
+.x9f619.x1hx0egp.x1yrsyyn {
     box-sizing: border-box !important;
     margin-left: 6% !important;
     margin-right: 6% !important;
-    padding-top: 2cqh !important;
-    padding-bottom: 2cqh !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
 }
 
 /* Keep timestamp and metadata inside the bottom of the parchment */

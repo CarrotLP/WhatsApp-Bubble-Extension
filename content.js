@@ -1,11 +1,22 @@
+// Dynamically inject extension resource URLs as CSS variables
+(function () {
+  const setScrollVars = () => {
+    const root = document.documentElement;
+    if (root) {
+      root.style.setProperty(
+        "--whatsapp-scroll-outgoing",
+        `url("${chrome.runtime.getURL("scroll-ends.png")}")`
+      );
+      root.style.setProperty(
+        "--whatsapp-scroll-incoming",
+        `url("${chrome.runtime.getURL("incoming-scroll.png")}")`
+      );
+    }
+  };
 
-const imageUrl = chrome.runtime.getURL("scroll-ends.png");
-
-const style = document.createElement("style");
-style.textContent = `
-  .x9f619.x1hx0egp.x1yrsyyn.xodvfiu.xct3hqd.xwib8y2::before,
-  .x9f619.x1hx0egp.x1yrsyyn.xodvfiu.xct3hqd.xwib8y2::after {
-    background-image: url("${imageUrl}") !important;
+  if (document.documentElement) {
+    setScrollVars();
+  } else {
+    document.addEventListener("DOMContentLoaded", setScrollVars, { once: true });
   }
-`;
-document.documentElement.appendChild(style);
+})();
